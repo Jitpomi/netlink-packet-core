@@ -297,4 +297,4 @@ pub use self::traits::{
 
 // For buffer! macros
 #[doc(hidden)]
-pub use paste::paste;
+pub use pastey::paste;
