@@ -29,19 +29,15 @@
 //! `netlink-packet-route`.
 //!
 //! ```rust
-//! use netlink_packet_core::{NetlinkMessage, NetlinkHeader, NLM_F_DUMP, NLM_F_REQUEST};
+//! use netlink_packet_core::{NetlinkMessage, NLM_F_DUMP, NLM_F_REQUEST};
 //! use netlink_packet_route::{link::LinkMessage, RouteNetlinkMessage};
 //!
 //! // Create the netlink message, that contains the rtnetlink
 //! // message
-//! let mut packet = NetlinkMessage {
-//!     header: NetlinkHeader {
-//!         sequence_number: 1,
-//!         flags: NLM_F_DUMP | NLM_F_REQUEST,
-//!         ..Default::default()
-//!     },
-//!     payload: RouteNetlinkMessage::GetLink(LinkMessage::default()).into(),
-//! };
+//! let mut packet = NetlinkMessage::from(
+//!     RouteNetlinkMessage::GetLink(LinkMessage::default()));
+//! packet.header.sequence_number = 1;
+//! packet.header.flags = NLM_F_DUMP | NLM_F_REQUEST;
 //!
 //! // Before serializing the packet, it is important to call
 //! // finalize() to ensure the header of the message is consistent

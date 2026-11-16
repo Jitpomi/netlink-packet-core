@@ -11,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
-      - run: cargo test --all-targets && cargo test --doc
+      - run: cargo test --all-targets && cargo test --doc && cargo run --example rtnetlink
