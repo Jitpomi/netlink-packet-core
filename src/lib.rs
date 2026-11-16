@@ -9,7 +9,7 @@
 //! `NetlinkSerializable` and `NetlinkDeserializable`.
 //!
 //! For instance, the `netlink-packet-route` crate provides rtnetlink
-//! messages via `netlink_packet_route::RtnlMessage`, and
+//! messages via `netlink_packet_route::RouteNetlinkMessage`, and
 //! `netlink-packet-audit` provides audit messages via
 //! `netlink_packet_audit::AuditMessage`.
 //!
@@ -29,9 +29,8 @@
 //! `netlink-packet-route`.
 //!
 //! ```rust
-//! use netlink_packet_core::{NLM_F_DUMP, NLM_F_REQUEST};
-//! use netlink_packet_route::{LinkMessage, RtnlMessage, NetlinkMessage,
-//! NetlinkHeader};
+//! use netlink_packet_core::{NetlinkMessage, NetlinkHeader, NLM_F_DUMP, NLM_F_REQUEST};
+//! use netlink_packet_route::{link::LinkMessage, RouteNetlinkMessage};
 //!
 //! // Create the netlink message, that contains the rtnetlink
 //! // message
@@ -41,7 +40,7 @@
 //!         flags: NLM_F_DUMP | NLM_F_REQUEST,
 //!         ..Default::default()
 //!     },
-//!     payload: RtnlMessage::GetLink(LinkMessage::default()).into(),
+//!     payload: RouteNetlinkMessage::GetLink(LinkMessage::default()).into(),
 //! };
 //!
 //! // Before serializing the packet, it is important to call
@@ -59,7 +58,7 @@
 //!
 //! // Deserialize the packet
 //! let deserialized_packet =
-//!     NetlinkMessage::<RtnlMessage>::deserialize(&buf).expect("Failed to deserialize message");
+//!     NetlinkMessage::<RouteNetlinkMessage>::deserialize(&buf).expect("Failed to deserialize message");
 //!
 //! // Normally, the deserialized packet should be exactly the same
 //! // than the serialized one.
